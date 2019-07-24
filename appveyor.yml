@@ -1,0 +1,28 @@
+version: 1.0.{build}
+image: Visual Studio 2019
+build_script:
+- cmd: >-
+    dotnet restore src\WebStore\
+
+    dotnet build src\WebStore\
+
+    dotnet pack src\WebStore\
+artifacts:
+- path: '**\*.nupkg'
+  name: Nuget
+deploy:
+- provider: NuGet
+  api_key:
+    secure: 84wCX8JrO9J0a4XWdTREPExSqLEJYQQLjmhb65n0FGVsE2OfzsDAZljWOdHj+uYAASu115tLyoEjdRQqBUURZb5c1CSa26yUZ55nZaC9p2M=
+  skip_symbols: true
+  artifact: /.*\.nupkg/
+skip_commits:
+  files:
+    - dir/*
+    - dir/*.md
+    - full/path.txt
+    - another/dir/here/
+    - '**/*.html' 
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: SCMU2gqW4Mu8XForDKfnBKvXLfnZ84GrO+nzCo5VP3nAB/hyoJq7n/JqjbJ9P6Pq
