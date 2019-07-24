@@ -1,0 +1,38 @@
+version: 1.0.{build}
+image: Visual Studio 2019
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+environment:
+  COVERALLS_REPO_TOKEN:
+   - secure: SCMU2gqW4Mu8XForDKfnBKvXLfnZ84GrO+nzCo5VP3nAB/hyoJq7n/JqjbJ9P6Pq
+build_script:
+- cmd: >-
+    dotnet restore src\WebStore\
+
+    dotnet build src\WebStore\
+
+    dotnet pack src\WebStore\
+test_script:
+- cmd: dotnet test src\WebStore.Tests\ /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+artifacts:
+- path: '**\*.nupkg'
+  name: Nuget
+deploy:
+- provider: NuGet
+  api_key:
+    secure: h77TLfult0fo5y6zngQdnSfZ5KuX2frCaVaM/LYw/mCCkzdVQp5Rdzuhg2HX+7B5
+  skip_symbols: true
+  artifact: /.*\.nupkg/
+notifications:
+- provider: Email
+  to:
+  - nallonpauluzzi@hotmail.com
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true
