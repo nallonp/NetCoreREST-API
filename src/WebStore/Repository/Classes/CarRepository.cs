@@ -11,9 +11,9 @@ namespace WebStore.Repository.Classes
 {
     public class CarRepository : GenericRepository<ICar>, ICarRepository
     {
-        public IList<ICar> SelectByManufacturer(string manufacturer)
+        public IList<ICar> SelectByMaker(string maker)
         {
-            return GetList().Where(x => x.Manufacturer == manufacturer).ToList();
+            return GetList().Where(x => x.Maker == maker).ToList();
         }
 
     }

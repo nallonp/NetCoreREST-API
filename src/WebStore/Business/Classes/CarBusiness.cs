@@ -25,7 +25,7 @@ namespace WebStore.Business.Classes
 
         public IList<ICar> SelectByManufacturer(string manufacturer)
         {
-            return _repository.SelectByManufacturer(manufacturer);
+            return _repository.SelectByMaker(manufacturer);
         }
     }
 }

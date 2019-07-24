@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WebStore.Domain.Entities;
 using WebStore.Domain.Interfaces;
 using WebStore.Service.Interfaces;
 
@@ -35,8 +33,8 @@ namespace WebStoreAPI.Controllers
                 return new StatusCodeResult(500);
             }
         }
-        [HttpGet("{marca}")]
-        public ActionResult<ICar> Get(String manufacturer)
+        [HttpGet("{manufacturer}")]
+        public ActionResult<ICar> Get([FromRoute]String manufacturer)
         {
             try
             {
@@ -50,7 +48,7 @@ namespace WebStoreAPI.Controllers
             }
         }
         [HttpPost]
-        public ActionResult<string> Post([FromBody]ICar car)
+        public ActionResult<string> Post([FromBody]Car car)
         {
             try
             {

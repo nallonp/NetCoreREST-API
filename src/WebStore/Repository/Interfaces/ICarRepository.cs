@@ -9,6 +9,6 @@ namespace WebStore.Repository.Interfaces
 {
     public interface ICarRepository : IGenericRepository<ICar>
     {
-        IList<ICar> SelectByManufacturer(string carMaker);
+        IList<ICar> SelectByMaker(string carMaker);
     }
 }

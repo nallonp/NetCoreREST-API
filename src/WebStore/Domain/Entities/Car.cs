@@ -13,7 +13,7 @@ namespace WebStore.Domain.Entities
         [MaxLength(4)]
         [MinLength(4)]
         public string Year { get; set; }
-        public string Manufacturer { get; set; }
+        public string Maker { get; set; }
         public string Model { get; set; }
     }
 }
