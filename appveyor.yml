@@ -10,7 +10,7 @@ dotnet_csproj:
   informational_version: '{version}'
 environment:
   COVERALLS_REPO_TOKEN:
-   - secure: SCMU2gqW4Mu8XForDKfnBKvXLfnZ84GrO+nzCo5VP3nAB/hyoJq7n/JqjbJ9P6Pq
+    secure: SCMU2gqW4Mu8XForDKfnBKvXLfnZ84GrO+nzCo5VP3nAB/hyoJq7n/JqjbJ9P6Pq
 build_script:
 - cmd: >-
     dotnet restore src\WebStore\
