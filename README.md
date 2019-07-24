@@ -1,2 +1,3 @@
 # NetCoreWebApi
-API desenvolvida durante o curso.
+
+I'm just learning to build REST APIS.
