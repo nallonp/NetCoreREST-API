@@ -24,7 +24,7 @@ build_script:
 
     dotnet pack src\WebStore\
 test_script:
-- cmd: 
+- ps: >-
   dotnet test src\WebStore.Tests\ /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 artifacts:
 - path: '**\*.nupkg'
