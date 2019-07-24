@@ -18,7 +18,7 @@ deploy:
   artifact: /.*\.nupkg/
 skip_commits:
   files:
-    - '**/*.md'
+    - *.md
     - '**/*.html' 
 environment:
   COVERALLS_REPO_TOKEN:
