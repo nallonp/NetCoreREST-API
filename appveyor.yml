@@ -32,7 +32,7 @@ deploy:
 notifications:
 - provider: Email
   to:
-  - nallonpauluzzi@hotmail.com
+  - zeXuw9HW9jspuucIwHFpHkBur8ZswKeLx/dExxHcnU4=
   on_build_success: true
   on_build_failure: true
   on_build_status_changed: true
