@@ -9,7 +9,7 @@ build_script:
 
     dotnet build src\WebStore\
 
-    dotnet pack src\WebStore\
+    dotnet pack src\WebStore\ /p:Version=1.0.{build}
 test_script:
 - cmd: dotnet test src\WebStore.Tests\ /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 artifacts:
