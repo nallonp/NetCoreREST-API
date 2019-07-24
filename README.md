@@ -25,4 +25,3 @@ Use methods from services classes to manipulate objects:
 ```cs
   _service.Add(car);
 ```
-
