@@ -3,7 +3,9 @@ image: Visual Studio 2019
 build_script:
 - cmd: >-
     dotnet restore src\WebStore\
+    
     dotnet build src\WebStore\
+    
     dotnet pack src\WebStore\
 artifacts:
 - path: '**\*.nupkg'
