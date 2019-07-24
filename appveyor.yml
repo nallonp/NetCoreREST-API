@@ -15,7 +15,7 @@ deploy:
   skip_symbols: true
   artifact: /.*\.nupkg/
 skip_commits:
-  files
+  files:
     - dir /*.md
     - '**/*.html' 
 environment:
