@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using WebStore.Business.Interfaces;
 using WebStore.Domain.Entities;
-using WebStore.Domain.Interfaces;
 using WebStore.Service.Interfaces;
-using ICar = WebStore.Domain.Interfaces.ICar;
 
 namespace WebStore.Service.Classes
 {
@@ -16,19 +12,27 @@ namespace WebStore.Service.Classes
         {
             _business = business;
         }
-        public IList<ICar> ListAll()
+        public IEnumerable<Car> GetAll()
         {
-            return _business.GetAllCars();
+            return _business.GetAll();
+        }
+        public void Add(Car car)
+        {
+            _business.Add(car);
         }
 
-        public void Add(ICar car)
+        public void Update(Car car)
         {
-            _business.RegisterCar(car);
+            _business.Update(car);
         }
 
-        public IList<ICar> FindByManufacturer(string manufacturer)
+        public void Delete(string guid)
         {
-            return _business.SelectByManufacturer(manufacturer);
+            _business.Delete(guid);
+        }
+        public IEnumerable<Car> SearchByMaker(string maker)
+        {
+            return _business.FindByMaker(maker);
         }
     }
 }

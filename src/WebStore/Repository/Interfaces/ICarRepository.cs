@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using WebStore.Domain.Entities;
-using WebStore.Domain.Interfaces;
 using WebStore.Repository.Interface;
 
 namespace WebStore.Repository.Interfaces
 {
-    public interface ICarRepository : IGenericRepository<ICar>
+    public interface ICarRepository : IGenericRepository<Car>
     {
-        IList<ICar> SelectByMaker(string carMaker);
+        IList<Car> FindByMaker(string maker);
     }
 }

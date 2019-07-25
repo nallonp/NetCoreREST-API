@@ -1,31 +1,46 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WebStore.Business.Interfaces;
 using WebStore.Domain.Entities;
-using WebStore.Domain.Interfaces;
 using WebStore.Repository.Interfaces;
 
 namespace WebStore.Business.Classes
 {
     public class CarBusiness : ICarBusiness
     {
-        private ICarRepository _repository;
+        private readonly ICarRepository _repository;
         public CarBusiness(ICarRepository repository)
         {
             _repository = repository;
         }
-        public IList<ICar> GetAllCars()
-        {
-            return _repository.GetList();
-        }
-
-        public void RegisterCar(ICar car)
+        public void Add(Car car)
         {
             _repository.Add(car);
         }
 
-        public IList<ICar> SelectByManufacturer(string manufacturer)
+        public void Delete(string guid)
         {
-            return _repository.SelectByMaker(manufacturer);
+            var car = FindByGuid(guid);
+            _repository.Delete(car);
+        }
+
+        public Car FindByGuid(string guid)
+        {
+            return _repository.FindByGuid(Guid.ParseExact(guid, "N"));
+        }
+
+        public IEnumerable<Car> GetAll()
+        {
+            return _repository.GetList();
+        }
+
+        public void Update(Car car)
+        {
+            _repository.Update(car);
+        }
+        public IEnumerable<Car> FindByMaker(string maker)
+        {
+            return _repository.FindByMaker(maker);
         }
     }
 }

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 using WebStore.Domain.Base;
-using WebStore.Domain.Interfaces;
 
 namespace WebStore.Domain.Entities
 {
-    public class Car : GenericEntity<ICar>, ICar
+    public class Car : GenericEntity<Car>
     {
         [Required]
         [MaxLength(4)]

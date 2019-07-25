@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using WebStore.Domain.Entities;
-using WebStore.Domain.Interfaces;
 
 namespace WebStore.Service.Interfaces
 {
     public interface ICarService
     {
-        void Add(ICar car);
-        IList<ICar> ListAll();
-        IList<ICar> FindByManufacturer(string manufacturer);
+        void Add(Car car);
+        void Update(Car car);
+        void Delete(string guid);
+        IEnumerable<Car> GetAll();
+        IEnumerable<Car> SearchByMaker(string maker);
     }
 }

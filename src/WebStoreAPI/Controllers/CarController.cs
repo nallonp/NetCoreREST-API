@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebStore.Domain.Entities;
-using WebStore.Domain.Interfaces;
 using WebStore.Service.Interfaces;
 
 namespace WebStoreAPI.Controllers
@@ -20,12 +19,12 @@ namespace WebStoreAPI.Controllers
             _logger = logger;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<ICar>> Get()
+        public ActionResult<IEnumerable<Car>> Get()
         {
             try
             {
-                _logger.LogInformation("Received get request!");
-                return Ok(_service.ListAll());
+                _logger.LogInformation("\nReceived get request!\n");
+                return Ok(_service.GetAll());
             }
             catch (Exception exception)
             {
@@ -33,13 +32,13 @@ namespace WebStoreAPI.Controllers
                 return new StatusCodeResult(500);
             }
         }
-        [HttpGet("{manufacturer}")]
-        public ActionResult<ICar> Get([FromRoute]String manufacturer)
+        [HttpGet("{maker}")]
+        public ActionResult<Car> Get([FromRoute]String maker)
         {
             try
             {
                 _logger.LogInformation("Received get request!");
-                return Ok(_service.FindByManufacturer(manufacturer));
+                return Ok(_service.SearchByMaker(maker));
             }
             catch (Exception exception)
             {
@@ -48,11 +47,11 @@ namespace WebStoreAPI.Controllers
             }
         }
         [HttpPost]
-        public ActionResult<string> Post([FromBody]Car car)
+        public ActionResult<string> Post(Car car)
         {
             try
             {
-                _logger.LogInformation("Received post request");
+                _logger.LogInformation("\nReceived post request\n");
                 if (ModelState.IsValid)
                 {
                     _service.Add(car);
@@ -66,6 +65,43 @@ namespace WebStoreAPI.Controllers
             catch (Exception exception)
             {
                 _logger.LogError(exception, exception.Message);
+                return new StatusCodeResult(500);
+            }
+        }
+        [HttpPut("{guid}")]
+        public ActionResult<string> Put(Car car)
+        {
+            try
+            {
+                _logger.LogInformation($"\nReceived put request! {car.Guid}\t{car.Maker}\t{car.Model}\t{car.Year}\n");
+                if (ModelState.IsValid)
+                {
+                    _service.Update(car);
+                    return Ok("Sucess!");
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return new StatusCodeResult(500);
+            }
+        }
+        [HttpDelete("{guid}")]
+        public ActionResult<string> Delete([FromRoute] string guid)
+        {
+            try
+            {
+                _logger.LogInformation("\nReceived delete request!\n");
+                _service.Delete(guid);
+                return Ok("Sucess");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
                 return new StatusCodeResult(500);
             }
         }
