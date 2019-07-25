@@ -17,19 +17,17 @@ environment:
   COVERALLS_REPO_TOKEN:
     secure: SCMU2gqW4Mu8XForDKfnBKvXLfnZ84GrO+nzCo5VP3nAB/hyoJq7n/JqjbJ9P6Pq
 build_script:
-- cmd: >-
+- ps: >-
     dotnet restore src\WebStore\
 
     dotnet build src\WebStore\
 
     dotnet pack src\WebStore\
 test_script:
-- cmd: 
-  dotnet test src\WebStore.Tests\ /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-  
-  $coveralls = ".\tools\csmacnz.coveralls.exe"
-    
-  & $coveralls --opencover -i src\WebStore.Tests\coverage.opencover.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
+- ps: >-
+    dotnet test src\WebStore.Tests\ /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
+    csmacnz.coveralls --opencover -i src\WebStore.Tests\coverage.opencover.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_JOB_ID
 artifacts:
 - path: '**\*.nupkg'
   name: Nuget
