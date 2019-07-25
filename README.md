@@ -13,7 +13,7 @@ Install-Package WebStore
 ```
 ## How to use:
 
-Setup the depencies via injection:
+Setup the dependencies via injection:
 ```cs
 private void DependencyInjection(IServiceCollection services)
   {
