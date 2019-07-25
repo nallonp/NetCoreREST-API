@@ -29,7 +29,7 @@ test_script:
 
     dotnet test src\WebStore.Tests\ /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
-    .\tools\csmacnz.Coveralls --opencover -i C:\projects\netcorerest-api\src\WebStore.Tests\coverage.opencover.xml --repoToken $env:COVERALLS_REPO_TOKEN
+    .\tools\csmacnz.Coveralls --opencover -i C:\projects\netcorerest-api\src\WebStore.Tests\coverage.opencover.xml --repoToken $env:"COVERALLS_REPO_TOKEN"
 artifacts:
 - path: '**\*.nupkg'
   name: Nuget
