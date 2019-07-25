@@ -3,6 +3,8 @@ using WebStore.Domain.Base;
 using WebStore.Repository.Interface;
 using System.Linq;
 using System;
+using WebStore.Infrastructure.DB;
+using Dapper;
 
 namespace WebStore.Repository.Base
 {
@@ -10,6 +12,7 @@ namespace WebStore.Repository.Base
     {
         private readonly List<T> _data;
         private static object _syncObj_list = new object();
+
         public GenericRepository()
         {
             if (_data == null)
@@ -28,7 +31,7 @@ namespace WebStore.Repository.Base
             if (index >= 0)
                 _data[index] = t;
             else
-                throw new ArgumentException("Objeto não encontrado.");            
+                throw new ArgumentException("Objeto não encontrado.");
         }
         public void Delete(T t)
         {
@@ -36,11 +39,27 @@ namespace WebStore.Repository.Base
         }
         public IEnumerable<T> GetList()
         {
-            return _data;
+            using (var conn = ConnectionFactory.GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    var result = conn.Query<T>("Select * from Car").ToList();
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
         }
         public T FindByGuid(Guid guid)
         {
-            return _data.Find(x => x.Guid.Equals(guid));
+            return _data.Find(x=>x.Guid==guid);
         }
     }
 }
