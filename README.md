@@ -8,8 +8,9 @@ Projeto de API do curso da Programmers.
 ## How to install:
 
 Via "Package Manager Console" type the following:
-Install-Package WebStore -Version 1.0.0
-
+```powershell
+Install-Package WebStore
+```
 ## How to use:
 
 Setup the depencies via injection:
