@@ -5,11 +5,11 @@ using System.Text;
 
 namespace WebStore.Infrastructure.DB
 {
-    public static class ConnectionFactory
+    public class ConnectionFactory : IConnectionFactory
     {
-        private static string _sqlConnection =
-            "server=23.98.153.101;database=DeveloperDB17;user=developer;password=dev123DEV123";
-        public static SqlConnection GetConnection()
+        private const string _sqlConnection =
+            "server=191.234.179.75;database=DeveloperDB17;user=developers;password=dev123DEV123";
+        public SqlConnection GetConnection()
         {
             return new SqlConnection(_sqlConnection);
         }

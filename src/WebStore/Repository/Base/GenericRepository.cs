@@ -1,51 +1,81 @@
 ﻿using System.Collections.Generic;
-using WebStore.Domain.Base;
 using WebStore.Repository.Interface;
-using System.Linq;
 using System;
 using WebStore.Infrastructure.DB;
-using Dapper;
+using Dapper.Contrib.Extensions;
+using WebStore.Domain.Base;
 
 namespace WebStore.Repository.Base
 {
-    public abstract class GenericRepository<T> : IGenericRepository<T> where T : IGenericEntity<T>
+    public abstract class GenericRepository<T> : IGenericRepository<T> where T : GenericEntity<T>
     {
-        private readonly List<T> _data;
-        private static object _syncObj_list = new object();
-
-        public GenericRepository()
-        {
-            if (_data == null)
-                lock (_syncObj_list)
-                    if (_data == null)
-                        _data = new List<T>();
-        }
+        protected IConnectionFactory _factory;
 
         public void Add(T t)
         {
-            _data.Add(t);
-        }
-        public void Update(T t)
-        {
-            var index = _data.FindIndex(x => x.Guid.Equals(t.Guid));
-            if (index >= 0)
-                _data[index] = t;
-            else
-                throw new ArgumentException("Objeto não encontrado.");
-        }
-        public void Delete(T t)
-        {
-            _data.Remove(t);
-        }
-        public IEnumerable<T> GetList()
-        {
-            using (var conn = ConnectionFactory.GetConnection())
+            using (var conn = _factory.GetConnection())
             {
                 try
                 {
                     conn.Open();
-                    var result = conn.Query<T>("Select * from Car").ToList();
-                    return result;
+                    conn.Insert(t);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public void Update(T t)
+        {
+            using (var conn = _factory.GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    conn.Update(t);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public void Delete(T t)
+        {
+            using (var conn = _factory.GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    conn.Delete(t);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public IEnumerable<T> GetList()
+        {
+            using (var conn = _factory.GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    return conn.GetAll<T>();
                 }
                 catch (Exception)
                 {
@@ -59,7 +89,23 @@ namespace WebStore.Repository.Base
         }
         public T FindByGuid(Guid guid)
         {
-            return _data.Find(x=>x.Guid==guid);
+            using (var conn = _factory.GetConnection())
+            {
+                try
+                {
+                    conn.Open();
+                    T result = conn.Get<T>(guid);
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using WebStore.Domain.Base;
 
 namespace WebStore.Repository.Interface
 {

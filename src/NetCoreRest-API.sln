@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStoreAPI", "WebStoreAPI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore", "WebStore\WebStore.csproj", "{BD76A0EE-A2A1-4691-8D5B-04448BC7F86C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Tests", "WebStore.Tests\WebStore.Tests.csproj", "{BEE030D9-E8A9-4540-9FBE-1FB53344D245}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Tests", "WebStore.Tests\WebStore.Tests.csproj", "{BEE030D9-E8A9-4540-9FBE-1FB53344D245}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -23,7 +23,7 @@ namespace WebStoreAPI.Controllers
         {
             try
             {
-                _logger.LogInformation("\nReceived get request!\n");
+                _logger.LogInformation("\nReceived get request!\nGetAll()");
                 return Ok(_service.GetAll());
             }
             catch (Exception exception)
@@ -37,7 +37,7 @@ namespace WebStoreAPI.Controllers
         {
             try
             {
-                _logger.LogInformation("Received get request!");
+                _logger.LogInformation($"\nReceived get request by maker:\n{maker}");
                 return Ok(_service.SearchByMaker(maker));
             }
             catch (Exception exception)
@@ -51,7 +51,7 @@ namespace WebStoreAPI.Controllers
         {
             try
             {
-                _logger.LogInformation("\nReceived post request\n");
+                _logger.LogInformation($"\nReceived post request\n{car}");
                 if (ModelState.IsValid)
                 {
                     _service.Add(car);
@@ -73,7 +73,7 @@ namespace WebStoreAPI.Controllers
         {
             try
             {
-                _logger.LogInformation($"\nReceived put request! {car.Guid}\t{car.Maker}\t{car.Model}\t{car.Year}\n");
+                _logger.LogInformation($"\nReceived put request!\n{car}");
                 if (ModelState.IsValid)
                 {
                     _service.Update(car);
@@ -95,7 +95,7 @@ namespace WebStoreAPI.Controllers
         {
             try
             {
-                _logger.LogInformation("\nReceived delete request!\n");
+                _logger.LogInformation($"\nReceived delete request guid\n{guid}");
                 _service.Delete(guid);
                 return Ok("Sucess");
             }

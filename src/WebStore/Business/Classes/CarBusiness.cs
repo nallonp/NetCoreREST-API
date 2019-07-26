@@ -20,13 +20,12 @@ namespace WebStore.Business.Classes
 
         public void Delete(string guid)
         {
-            var car = FindByGuid(guid);
-            _repository.Delete(car);
+            _repository.Delete(FindByGuid(guid));
         }
 
         public Car FindByGuid(string guid)
         {
-            return _repository.FindByGuid(Guid.ParseExact(guid, "N"));
+            return _repository.FindByGuid(Guid.ParseExact(guid, "D"));
         }
 
         public IEnumerable<Car> GetAll()
